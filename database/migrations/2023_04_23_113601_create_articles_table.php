@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->text('full_text');
-            $table->string('image_path')->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
