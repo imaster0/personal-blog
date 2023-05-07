@@ -12,4 +12,9 @@ class HomeController extends Controller
         $articles = Article::all();
         return view('welcome', compact('articles'));
     }
+
+    public function showArticle(Article $article)
+    {
+        return view('article', compact('article'));
+    }
 }

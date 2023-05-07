@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::resource('articles', ArticleController::class);
-});
+Route::get('/article/{article}', [HomeController::class, 'showArticle'])->name('article');
 
 
 Auth::routes(['register' => false]);

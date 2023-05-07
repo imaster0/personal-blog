@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-body">
                 <h3>Article #{{ $article->id }}</h3>
-                <form action="{{ route('articles.update', $article) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.articles.update', $article) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">

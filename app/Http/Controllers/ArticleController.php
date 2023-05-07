@@ -23,7 +23,7 @@ class ArticleController extends Controller
     public function store(ArticleFormRequest $request)
     {
         $article = Article::create($request->validated());
-        return redirect()->route('articles.show', compact('article'));
+        return redirect()->route('admin.articles.show', compact('article'));
     }
 
     public function show(Article $article)
@@ -40,12 +40,12 @@ class ArticleController extends Controller
     public function update(ArticleFormRequest $request, Article $article)
     {
         $article->update($request->validated());
-        return redirect()->route('articles.edit', $article);
+        return redirect()->route('admin.articles.edit', $article);
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
-        return redirect()->route('articles.index');
+        return redirect()->route('admin.articles.index');
     }
 }

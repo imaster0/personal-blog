@@ -35,7 +35,7 @@ class Article extends Model
     protected function shortDescription(): Attribute
     {
         return Attribute::make(
-            get: fn () => Str::words($this->full_text, 10, '...')
+            get: fn () => Str::words($this->full_text, 40, '...')
         );
     }
 }

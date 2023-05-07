@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-body">
                 <h3>Create a new article</h3>
-                <form action="{{ route('articles.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.articles.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="title">Title</label>

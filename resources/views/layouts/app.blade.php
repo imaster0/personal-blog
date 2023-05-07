@@ -20,7 +20,7 @@
     <div id="app">
         <nav class="navbar navbar-dark bg-dark shadow-sm navbar-expand-md">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/articles') }}">
+                <a class="navbar-brand" href="{{ route('admin.articles.index') }}">
                     {{ config('app.name', 'Laravel') }} - Admin Panel
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -31,7 +31,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a href="{{ url('/') }}" class="nav-link">Home</a>
+                            <a href="{{ route('welcome') }}" class="nav-link">Home</a>
                         </li>
                         @auth
                         <li class="nav-item dropdown">
@@ -40,10 +40,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('articles.create') }}">
+                                <a class="dropdown-item" href="{{ route('admin.articles.create') }}">
                                     {{ __('Create') }}
                                </a>
-                                <a class="dropdown-item" href="{{ route('articles.index') }}">
+                                <a class="dropdown-item" href="{{ route('admin.articles.index') }}">
                                     {{ __('List') }}
                                 </a>
                             </div>
