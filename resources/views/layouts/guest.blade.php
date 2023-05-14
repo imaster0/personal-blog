@@ -29,9 +29,10 @@
                     <strong>{{ config('app.name', 'Laravel') }}</strong>
                 </a>
                 <ul class="navbar-nav me-auto flex-row gap-3">
-                    <li class="nav-iem">
+                    <li class="nav-item">
                         <a href="{{ route('welcome') }}" class="nav-link">Articles</a>
                     </li>
+                    <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
                 </ul>
 
                 <ul class="navbar-nav">
