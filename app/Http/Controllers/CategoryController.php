@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public const CATEGORIES_PER_PAGE = 15;
+
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(self::CATEGORIES_PER_PAGE);
         return view('categories.index', compact('categories'));
     }
 

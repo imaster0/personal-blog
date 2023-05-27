@@ -33,6 +33,7 @@
                     </div>
                 </div>
             @endforeach
+            {{ $tags->links() }}
         </div>
     </div>
 </div>

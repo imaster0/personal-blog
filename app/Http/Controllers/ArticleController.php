@@ -8,9 +8,11 @@ use App\Models\Category;
 
 class ArticleController extends Controller
 {
+    public const ARTICLES_PER_PAGE = 15;
+
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::with('category')->paginate(self::ARTICLES_PER_PAGE);
         return view('articles.index', compact('articles'));
     }
 

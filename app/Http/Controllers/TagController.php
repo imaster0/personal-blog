@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
+    public const TAGS_PER_PAGE = 30;
+
     public function index()
     {
-        $tags = Tag::all();
+        $tags = Tag::paginate(self::TAGS_PER_PAGE);
         return view('tags.index', compact('tags'));
     }
 

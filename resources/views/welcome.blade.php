@@ -43,6 +43,7 @@
                     </div>
                 </div>
             @endforeach
+            {{ $articles->links() }}
         </div>
     </div>
 </div>
