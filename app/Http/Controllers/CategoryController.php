@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Article::all();
+        $categories = Category::all();
         return view('categories.index', compact('categories'));
     }
 
@@ -20,32 +20,41 @@ class CategoryController extends Controller
         return view('categories.create', compact('categories'));
     }
 
-    public function store(ArticleFormRequest $request)
+    public function store(Request $request)
     {
-        $article = Article::create($request->validated());
-        return redirect()->route('categories.show', compact('article'));
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $category = Category::create($validated);
+
+        return redirect()->route('admin.categories.show', compact('category'));
     }
 
-    public function show(Article $article)
+    public function show(Category $category)
     {
-        return view('categories.show', compact('article'));
+        return view('categories.show', compact('category'));
     }
 
-    public function edit(Article $article)
+    public function edit(Category $category)
     {
-        $categories = Category::all();
-        return view('categories.edit', compact('article', 'categories'));
+        return view('categories.edit', compact('category'));
     }
 
-    public function update(ArticleFormRequest $request, Article $article)
+    public function update(Request $request, Category $category)
     {
-        $article->update($request->validated());
-        return redirect()->route('categories.edit', $article);
+        $validated = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $category->update($validated);
+
+        return redirect()->back()->with('success', 'Saved!');
     }
 
-    public function destroy(Article $article)
+    public function destroy(Category $category)
     {
-        $article->delete();
-        return redirect()->route('categories.index');
+        $category->delete();
+        return redirect()->route('admin.categories.index');
     }
 }
