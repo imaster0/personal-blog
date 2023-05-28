@@ -29,6 +29,11 @@
                         <label for="full_text">Full text</label>
                         <textarea name="full_text" class="form-control">{{ old('full_text') }}</textarea>
                     </div>
+
+                    <div class="form-group mt-2">
+                        <label for="full_text">Tags (separated by comma)</label>
+                        <input type="text" name="tags" class="form-control" value="{{ old('tags') }}">
+                    </div>
                 
                     <div class="form-group mt-2">
                         <label for="category_id">Category</label>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticleFormRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
 
 class ArticleController extends Controller
 {
@@ -12,7 +13,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::with('category')->paginate(self::ARTICLES_PER_PAGE);
+        $articles = Article::with('category')->latest()->paginate(self::ARTICLES_PER_PAGE);
         return view('articles.index', compact('articles'));
     }
 
@@ -24,7 +25,13 @@ class ArticleController extends Controller
 
     public function store(ArticleFormRequest $request)
     {
-        $article = Article::create($request->validated());
+        $article = Article::create($request->articleFields());
+
+        $tags = explode(',', $request->tags);
+        foreach ($tags as $tagName) {
+            $article->tags()->attach(Tag::firstOrCreate(['name' => $tagName]));
+        }
+
         return redirect()->route('admin.articles.show', compact('article'));
     }
 
@@ -36,12 +43,23 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $categories = Category::all();
-        return view('articles.edit', compact('article', 'categories'));
+        $tags = implode(',', array_map(fn ($tag) => $tag['name'], $article->tags->toArray()));
+        return view('articles.edit', compact('article', 'categories', 'tags'));
     }
 
     public function update(ArticleFormRequest $request, Article $article)
     {
-        $article->update($request->validated());
+        $article->update($request->articleFields());
+
+        $tags = explode(',', $request->tags);
+        $tagIds = [];
+        foreach ($tags as $tagName) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $tagIds[] = $tag->id;
+        }
+
+        $article->tags()->sync($tagIds);
+
         return redirect()->route('admin.articles.edit', $article);
     }
 

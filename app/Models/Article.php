@@ -28,7 +28,7 @@ class Article extends Model
     {
         return Attribute::make(
             get: fn (?string $path) => $path ? asset('storage/' . $path) : null,
-            set: fn (UploadedFile $image) => $image->store('images', 'public'),
+            set: fn (?UploadedFile $image) => $image?->store('images', 'public'),
         );
     }
 

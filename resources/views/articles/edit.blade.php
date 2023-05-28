@@ -23,20 +23,25 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" name="title" class="form-control" value="{{ $article->title ?? old('title') }}">
+                        <input type="text" name="title" class="form-control" value="{{ old('title') ?? $article->title }}">
                     </div>
                 
                     <div class="form-group mt-2">
                         <label for="full_text">Full text</label>
-                        <textarea name="full_text" class="form-control">{{ $article->full_text ?? old('full_text') }}</textarea>
+                        <textarea name="full_text" class="form-control">{{ old('full_text') ?? $article->full_text }}</textarea>
                     </div>
                 
+                    <div class="form-group mt-2">
+                        <label for="full_text">Tags (separated by comma)</label>
+                        <input type="text" name="tags" class="form-control" value="{{ old('tags') ?? $tags }}">
+                    </div>
+
                     <div class="form-group mt-2">
                         <label for="category_id">Category</label>
                         <select name="category_id" class="form-control">
                             <option value=""></option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" @if($category->id == $article->category_id ?? old('category_id')) selected @endif>
+                                <option value="{{ $category->id }}" @if($category->id == old('category_id') ?? $article->category_id) selected @endif>
                                     {{ $category->name }}
                                 </option>
                             @endforeach

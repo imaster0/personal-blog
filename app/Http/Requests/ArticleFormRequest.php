@@ -25,7 +25,18 @@ class ArticleFormRequest extends FormRequest
             'title' => 'required',
             'full_text' => 'required',
             'category_id' => 'required',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'tags' => 'present'
+        ];
+    }
+
+    public function articleFields()
+    {
+        return [
+            'title' => $this->title,
+            'full_text' => $this->full_text,
+            'category_id' => $this->category_id,
+            'image' => $this->image
         ];
     }
 }

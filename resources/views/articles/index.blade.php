@@ -21,7 +21,13 @@
                                     @endif
                                 </div>
                                 <div class="col-8">
-                                    #{{ $article->category->name }} <br>
+                                    @if($article->tags->count())
+                                        @foreach ($article->tags as $tag)
+                                        {{ $tag }} 
+                                        @endforeach
+                                        <br>
+                                    @endif
+                                    #{{ $article->category }} <br>
                                     {{ $article->title }} <br>
                                     {{ $article->short_description }} <br>
 
