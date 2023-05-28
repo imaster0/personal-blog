@@ -26,11 +26,7 @@ class ArticleController extends Controller
     public function store(ArticleFormRequest $request)
     {
         $article = Article::create($request->articleFields());
-
-        $tags = explode(',', $request->tags);
-        foreach ($tags as $tagName) {
-            $article->tags()->attach(Tag::firstOrCreate(['name' => $tagName]));
-        }
+        $article->syncTags(explode(',', $request->tags));
 
         return redirect()->route('admin.articles.show', compact('article'));
     }
@@ -50,15 +46,7 @@ class ArticleController extends Controller
     public function update(ArticleFormRequest $request, Article $article)
     {
         $article->update($request->articleFields());
-
-        $tags = explode(',', $request->tags);
-        $tagIds = [];
-        foreach ($tags as $tagName) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $tagIds[] = $tag->id;
-        }
-
-        $article->tags()->sync($tagIds);
+        $article->syncTags(explode(',', $request->tags));
 
         return redirect()->route('admin.articles.edit', $article);
     }

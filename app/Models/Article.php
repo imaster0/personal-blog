@@ -38,4 +38,16 @@ class Article extends Model
             get: fn () => Str::words($this->full_text, 40, '...')
         );
     }
+
+    public function syncTags($tagNames)
+    {
+        $tagIds = [];
+        foreach ($tagNames as $tagName) {
+            $tagName = trim($tagName);
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $tagIds[] = $tag->id;
+        }
+
+        $this->tags()->sync($tagIds);
+    }
 }
